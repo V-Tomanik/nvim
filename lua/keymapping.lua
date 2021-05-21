@@ -1,3 +1,5 @@
+local tools = require('tools')
+
 local map = vim.api.nvim_set_keymap
 
 --================================
@@ -24,6 +26,11 @@ vim.api.nvim_set_keymap('x','<expr><TAB>','pumvisible() ? "\\<C-n>" : "\\<TAB>"'
 
 vim.cmd('inoremap <expr> <Tab>   pumvisible() ? "\\<C-n>" : "\\<Tab>"')
 vim.cmd('inoremap <expr> <S-Tab> pumvisible() ? "\\<C-p>" : "\\<S-Tab>"')
+--================================
+--			TOOL'S  MAP
+--================================
+
+
 
 --================================
 --			PLUGIN MAP
@@ -37,5 +44,5 @@ vim.api.nvim_set_keymap('n','<Leader>sf',':Telescope find_files<CR>',{})
 vim.api.nvim_set_keymap('n','<silent>gd','vim.lsp.buf.definition()<CR>',{})
 vim.api.nvim_set_keymap('n','<silent>gr','vim.lsp.buf.references()<CR>',{})
 
-vim.api.nvim_set_keymap('n','<silent>gs',':G<CR>',{})
+vim.api.nvim_set_keymap('n','<Leader>git',':Git<CR>',{})
 
