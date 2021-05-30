@@ -42,8 +42,8 @@ vim.cmd('set shortmess+=c')
 --================================
 --			PLUGIN SETUP
 --================================
-
-vim.cmd('colorscheme gruvbox')
+vim.cmd('colorscheme dracula')
+vim.cmd('set background "dark"')
 
 --Para treesitter
 require'nvim-treesitter.configs'.setup {
@@ -52,6 +52,11 @@ require'nvim-treesitter.configs'.setup {
     enable = true,              -- false will disable the whole extension
   },
 }
+--Para file explorer
+vim.g.nvim_tree_ignore ={'.git'}
+
+--Para completion and ultisnipts
+--vim.g.completion_enable_snippet='UltiSnips'
 
 --Para dashboard
 vim.g.dashboard_default_executive = 'telescope'

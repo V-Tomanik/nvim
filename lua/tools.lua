@@ -9,15 +9,8 @@ function M.makeScratch()
 		vim.bo[0].swapfile=false
 end
 
-function M.makeTerminal()
-		api.nvim_command('terminal') -- Identico a :enew
-		--Definir keymapps especificos
-end
-
---function M.makeCommit()
-		--api.nvim_command('Git')
 vim.cmd("command! Scratch lua require'tools'.makeScratch()")
-vim.cmd("command! Terminal  lua require'tools'.makeTerminal()")
+
 return M
 
 

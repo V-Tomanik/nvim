@@ -79,6 +79,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/completion-nvim"
   },
+  ["darcula-solid.nvim"] = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/darcula-solid.nvim"
+  },
   ["dashboard-nvim"] = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/dashboard-nvim"
@@ -99,9 +103,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
+  ["lush.nvim"] = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/lush.nvim"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
+  },
+  ["nvim-toggle-terminal"] = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/nvim-toggle-terminal"
+  },
+  ["nvim-tree.lua"] = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
     loaded = true,

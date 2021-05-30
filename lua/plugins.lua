@@ -30,9 +30,12 @@ return require('packer').startup(function()
 	use {'glepnir/dashboard-nvim'}
 	use {'hoob3rt/lualine.nvim',
   		requires = {'kyazdani42/nvim-web-devicons', opt = true}}
-  --use {'kevinhwang91/rnvimr'}
+	use {'caenrique/nvim-toggle-terminal'}
+	use {'kyazdani42/nvim-tree.lua',
+  		requires = {'kyazdani42/nvim-web-devicons', opt = true}}
+	--use{'dhruvasagar/vim-dotoo'}
+--	use{'SirVer/ultisnips'}
 end)
-
 
 
 
