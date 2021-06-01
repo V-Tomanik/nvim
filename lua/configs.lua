@@ -43,7 +43,6 @@ vim.cmd('set shortmess+=c')
 --			PLUGIN SETUP
 --================================
 vim.cmd('colorscheme dracula')
-vim.cmd('set background "dark"')
 
 --Para treesitter
 require'nvim-treesitter.configs'.setup {
