@@ -37,7 +37,7 @@ wo.signcolumn="yes"
 
 vim.o.showtabline=2
 
-vim.cmd('set completeopt=menuone,noinsert,noselect')
+vim.o.completeopt = 'menuone,noselect'
 vim.cmd('set shortmess+=c')
 --================================
 --			PLUGIN SETUP
@@ -54,6 +54,9 @@ require'nvim-treesitter.configs'.setup {
 --Para file explorer
 vim.g.nvim_tree_ignore ={'.git'}
 
+--Para Project plugin
+vim.g.nvim_tree_update_cwd = 1
+vim.g.nvim_tree_respect_buf_cwd = 1
 --Para completion and ultisnipts
 --vim.g.completion_enable_snippet='UltiSnips'
 
@@ -106,33 +109,66 @@ require'lualine'.setup {
   extensions = {}
 }
 
+local luasnip=require 'luasnip'
 --================================
 --			LSP SETUP
 --================================
---Python
-require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach}
 
---Lua
-local sumneko_root_path="/home/" .. USER .. "/.config/nvim/lsp/lua-language-server"
-local sumneko_binary="/home/" .. USER .. "/.config/nvim/lsp/lua-language-server/bin/Linux/lua-language-server"
-require'lspconfig'.sumneko_lua.setup {
-cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-		settings = {
-			Lua = {
-				runtime = {
-					-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-					version = 'LuaJIT',
-					-- Setup your lua path
-					path = vim.split(package.path, ';')
-				},
-				diagnostics = {
-					-- Get the language server to recognize the `vim` global
-					globals = {'vim'}
-				},
-				workspace = {
-					-- Make the server aware of Neovim runtime files
-					library = {[vim.fn.expand('$VIMRUNTIME/lua')] = true, [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true}
-				}
-			}
-		}
+local function setup_servers()
+  require'lspinstall'.setup()
+  local servers = require'lspinstall'.installed_servers()
+  for _, server in pairs(servers) do
+    require'lspconfig'[server].setup{}
+  end
+end
+
+setup_servers()
+
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require'lspinstall'.post_install_hook = function ()
+  setup_servers() -- reload installed servers
+  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end
+
+local cmp = require 'cmp'
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  mapping = {
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = function(fallback)
+      if vim.fn.pumvisible() == 1 then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+      elseif luasnip.expand_or_jumpable() then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
+      else
+        fallback()
+      end
+    end,
+    ['<S-Tab>'] = function(fallback)
+      if vim.fn.pumvisible() == 1 then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+      elseif luasnip.jumpable(-1) then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
+      else
+        fallback()
+      end
+    end,
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  },
 }

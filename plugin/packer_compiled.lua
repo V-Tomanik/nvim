@@ -1,17 +1,14 @@
-" Automatically generated packer.nvim plugin loader code
+-- Automatically generated packer.nvim plugin loader code
 
-if !has('nvim-0.5')
-  echohl WarningMsg
-  echom "Invalid Neovim version for packer.nvim!"
-  echohl None
-  finish
-endif
+if vim.api.nvim_call_function('has', {'nvim-0.5'}) ~= 1 then
+  vim.api.nvim_command('echohl WarningMsg | echom "Invalid Neovim version for packer.nvim! | echohl None"')
+  return
+end
 
-packadd packer.nvim
+vim.api.nvim_command('packadd packer.nvim')
 
-try
+local no_errors, error_msg = pcall(function()
 
-lua << END
   local time
   local profile_info
   local should_profile = false
@@ -46,7 +43,7 @@ local function save_profiles(threshold)
   _G._packer.profile_output = results
 end
 
-time("Luarocks path setup", true)
+time([[Luarocks path setup]], true)
 local package_path_str = "/home/vv/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/vv/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/vv/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/vv/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
 local install_cpath_pattern = "/home/vv/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
@@ -57,31 +54,36 @@ if not string.find(package.cpath, install_cpath_pattern, 1, true) then
   package.cpath = package.cpath .. ';' .. install_cpath_pattern
 end
 
-time("Luarocks path setup", false)
-time("try_loadstring definition", true)
+time([[Luarocks path setup]], false)
+time([[try_loadstring definition]], true)
 local function try_loadstring(s, component, name)
   local success, result = pcall(loadstring(s))
   if not success then
-    print('Error running ' .. component .. ' for ' .. name)
-    error(result)
+    vim.schedule(function()
+      vim.api.nvim_notify('packer.nvim: Error running ' .. component .. ' for ' .. name .. ': ' .. result, vim.log.levels.ERROR, {})
+    end)
   end
   return result
 end
 
-time("try_loadstring definition", false)
-time("Defining packer_plugins", true)
+time([[try_loadstring definition]], false)
+time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  LuaSnip = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/LuaSnip"
+  },
   ["barbar.nvim"] = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/barbar.nvim"
   },
-  ["completion-nvim"] = {
+  ["cmp-buffer"] = {
     loaded = true,
-    path = "/home/vv/.local/share/nvim/site/pack/packer/start/completion-nvim"
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/cmp-buffer"
   },
-  ["darcula-solid.nvim"] = {
+  cmp_luasnip = {
     loaded = true,
-    path = "/home/vv/.local/share/nvim/site/pack/packer/start/darcula-solid.nvim"
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/cmp_luasnip"
   },
   ["dashboard-nvim"] = {
     loaded = true,
@@ -95,21 +97,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/gruvbox"
   },
-  ["lsp-rooter.nvim"] = {
-    loaded = true,
-    path = "/home/vv/.local/share/nvim/site/pack/packer/start/lsp-rooter.nvim"
-  },
   ["lualine.nvim"] = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
-  ["lush.nvim"] = {
+  ["nvim-cmp"] = {
     loaded = true,
-    path = "/home/vv/.local/share/nvim/site/pack/packer/start/lush.nvim"
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/nvim-cmp"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
+  },
+  ["nvim-lspinstall"] = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/nvim-lspinstall"
   },
   ["nvim-toggle-terminal"] = {
     loaded = true,
@@ -139,6 +141,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/popup.nvim"
   },
+  ["project.nvim"] = {
+    config = { "\27LJ\2\n‚\1\0\0\6\0\6\1\0146\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\3\0006\3\0\0'\5\3\0B\3\2\0029\3\4\3'\5\5\0B\3\2\0?\3\0\0B\0\2\1K\0\1\0\rprojects\19load_extension\14telescope\nsetup\17project_nvim\frequire\3€€À™\4\0" },
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/project.nvim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/telescope.nvim"
@@ -150,17 +157,22 @@ _G.packer_plugins = {
   ["vim-fugitive"] = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/vim-fugitive"
+  },
+  ["vim-vsnip"] = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/vim-vsnip"
   }
 }
 
-time("Defining packer_plugins", false)
+time([[Defining packer_plugins]], false)
+-- Config for: project.nvim
+time([[Config for project.nvim]], true)
+try_loadstring("\27LJ\2\n‚\1\0\0\6\0\6\1\0146\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\3\0006\3\0\0'\5\3\0B\3\2\0029\3\4\3'\5\5\0B\3\2\0?\3\0\0B\0\2\1K\0\1\0\rprojects\19load_extension\14telescope\nsetup\17project_nvim\frequire\3€€À™\4\0", "config", "project.nvim")
+time([[Config for project.nvim]], false)
 if should_profile then save_profiles() end
 
-END
+end)
 
-catch
-  echohl ErrorMsg
-  echom "Error in packer_compiled: " .. v:exception
-  echom "Please check your config for correctness"
-  echohl None
-endtry
+if not no_errors then
+  vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: '..error_msg..'" | echom "Please check your config for correctness" | echohl None')
+end

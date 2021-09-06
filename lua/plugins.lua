@@ -24,17 +24,26 @@ return require('packer').startup(function()
 	use {'mbbill/undotree'}
 	use {'nvim-telescope/telescope.nvim',
 			requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
-	use {'nvim-lua/completion-nvim'}
-	use {'ahmedkhalf/lsp-rooter.nvim'}
+	use {
+  		"ahmedkhalf/project.nvim",
+  		config = function()
+    		require("project_nvim").setup {
+			require('telescope').load_extension('projects')}
+		end}
+	use {  "hrsh7th/nvim-cmp",
+  		requires = {
+    	"hrsh7th/vim-vsnip",
+    	"hrsh7th/cmp-buffer",}}
 	use {'nvim-treesitter/nvim-treesitter'}
 	use {'glepnir/dashboard-nvim'}
+	use {'saadparwaiz1/cmp_luasnip'}
+  	use {'L3MON4D3/LuaSnip'} -- Snippets plugin
 	use {'hoob3rt/lualine.nvim',
   		requires = {'kyazdani42/nvim-web-devicons', opt = true}}
 	use {'caenrique/nvim-toggle-terminal'}
 	use {'kyazdani42/nvim-tree.lua',
   		requires = {'kyazdani42/nvim-web-devicons', opt = true}}
-	--use{'dhruvasagar/vim-dotoo'}
---	use{'SirVer/ultisnips'}
+	use {'kabouzeid/nvim-lspinstall'}
 end)
 
 

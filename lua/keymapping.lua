@@ -18,7 +18,7 @@ map('n','<Leader>j',':wincmd j<CR>',{})
 -- Movimentação de buffer
 vim.api.nvim_set_keymap('n', '<TAB>', ':BufferNext<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<S-TAB>', ':BufferPrevious<CR>', { noremap = true, silent = true })
-
+vim.api.nvim_set_keymap('n', 'bc', ':BufferClose<CR>', { noremap = true, silent = true })
 -- Movimentação no terminal buffer
 vim.cmd('tnoremap <Esc> <C-\\><C-n>')
 
@@ -27,8 +27,9 @@ vim.cmd('tnoremap <Esc> <C-\\><C-n>')
 --vim.api.nvim_set_keymap('t','<Alt>e','<Ctrl-l><Ctrl-N>',{})
 vim.api.nvim_set_keymap('x','<expr><TAB>','pumvisible() ? "\\<C-n>" : "\\<TAB>"',{})
 
-vim.cmd('inoremap <expr> <Tab>   pumvisible() ? "\\<C-n>" : "\\<Tab>"')
-vim.cmd('inoremap <expr> <S-Tab> pumvisible() ? "\\<C-p>" : "\\<S-Tab>"')
+--vim.cmd('inoremap <expr> <Tab>   pumvisible() ? "\\<C-n>" : "\\<Tab>"')
+--vim.cmd('inoremap <expr> <S-Tab> pumvisible() ? "\\<C-p>" : "\\<S-Tab>"')
+
 --================================
 --			TOOL'S  MAP
 --================================
