@@ -69,21 +69,9 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  LuaSnip = {
-    loaded = true,
-    path = "/home/vv/.local/share/nvim/site/pack/packer/start/LuaSnip"
-  },
   ["barbar.nvim"] = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/barbar.nvim"
-  },
-  ["cmp-buffer"] = {
-    loaded = true,
-    path = "/home/vv/.local/share/nvim/site/pack/packer/start/cmp-buffer"
-  },
-  cmp_luasnip = {
-    loaded = true,
-    path = "/home/vv/.local/share/nvim/site/pack/packer/start/cmp_luasnip"
   },
   ["dashboard-nvim"] = {
     loaded = true,
@@ -93,6 +81,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/dracula"
   },
+  ["friendly-snippets"] = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/friendly-snippets"
+  },
   gruvbox = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/gruvbox"
@@ -101,9 +93,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
-  ["nvim-cmp"] = {
+  ["nvim-compe"] = {
     loaded = true,
-    path = "/home/vv/.local/share/nvim/site/pack/packer/start/nvim-cmp"
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/nvim-compe"
   },
   ["nvim-lspconfig"] = {
     loaded = true,

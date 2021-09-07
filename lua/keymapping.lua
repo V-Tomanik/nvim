@@ -22,14 +22,6 @@ vim.api.nvim_set_keymap('n', 'bc', ':BufferClose<CR>', { noremap = true, silent 
 -- Movimentação no terminal buffer
 vim.cmd('tnoremap <Esc> <C-\\><C-n>')
 
-
-
---vim.api.nvim_set_keymap('t','<Alt>e','<Ctrl-l><Ctrl-N>',{})
-vim.api.nvim_set_keymap('x','<expr><TAB>','pumvisible() ? "\\<C-n>" : "\\<TAB>"',{})
-
---vim.cmd('inoremap <expr> <Tab>   pumvisible() ? "\\<C-n>" : "\\<Tab>"')
---vim.cmd('inoremap <expr> <S-Tab> pumvisible() ? "\\<C-p>" : "\\<S-Tab>"')
-
 --================================
 --			TOOL'S  MAP
 --================================
@@ -44,9 +36,6 @@ vim.cmd('tnoremap <silent> <C-z> <C-\\><C-n>:ToggleTerminal<Enter>')
 --NvimTree
 vim.api.nvim_set_keymap('n','<Leader>pp',':NvimTreeToggle<CR>',{})
 
---Ultisnits
---vim.cmd('let g:completion_confirm_key = "\\<C-y>"')
-
 -- Undotree
 vim.api.nvim_set_keymap('n','<Leader>ut',':UndotreeToggle<CR>',{})
 
@@ -59,4 +48,45 @@ vim.api.nvim_set_keymap('n','<silent>gd','vim.lsp.buf.definition()<CR>',{})
 vim.api.nvim_set_keymap('n','<silent>gr','vim.lsp.buf.references()<CR>',{})
 
 vim.api.nvim_set_keymap('n','<Leader>git',':Git<CR>',{})
+
+-- Completion
+--Tab seleciona o item no popup
+
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local check_back_space = function()
+    local col = vim.fn.col('.') - 1
+    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+end
+
+_G.tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-n>"
+  elseif vim.fn['vsnip#available'](1) == 1 then
+    return t "<Plug>(vsnip-expand-or-jump)"
+  elseif check_back_space() then
+    return t "<Tab>"
+  else
+    return vim.fn['compe#complete']()
+  end
+end
+_G.s_tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-p>"
+  elseif vim.fn['vsnip#jumpable'](-1) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
+  else
+    -- If <S-Tab> is not working in your terminal, change it to <C-h>
+    return t "<S-Tab>"
+  end
+end
+
+--Fazer funcionar o completion do snippet
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap('n', "<silent><expr><Enter>", "vim.fn[compe#confirm()]",{expr = true})
 

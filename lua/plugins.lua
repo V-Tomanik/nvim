@@ -1,5 +1,4 @@
 --Instalação de plugins
-
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
@@ -13,13 +12,14 @@ end
 vim.cmd [[packadd packer.nvim]]
 
 --Instala os plugins (quando esse arquivo é chamdo retorna essa função aqui)
-return require('packer').startup(function()
+return require('packer').startup(function(use)
 	use {'wbthomason/packer.nvim'}
-	use {'neovim/nvim-lspconfig'}
+
 	use {'gruvbox-community/gruvbox', as = 'gruvbox'}
   	use {'dracula/vim', as = 'dracula'}
-	use {'tpope/vim-fugitive'}
 	use {'kyazdani42/nvim-web-devicons'}
+
+	use {'tpope/vim-fugitive'}
 	use {'romgrk/barbar.nvim'}
 	use {'mbbill/undotree'}
 	use {'nvim-telescope/telescope.nvim',
@@ -30,20 +30,21 @@ return require('packer').startup(function()
     		require("project_nvim").setup {
 			require('telescope').load_extension('projects')}
 		end}
-	use {  "hrsh7th/nvim-cmp",
-  		requires = {
-    	"hrsh7th/vim-vsnip",
-    	"hrsh7th/cmp-buffer",}}
+
 	use {'nvim-treesitter/nvim-treesitter'}
 	use {'glepnir/dashboard-nvim'}
-	use {'saadparwaiz1/cmp_luasnip'}
-  	use {'L3MON4D3/LuaSnip'} -- Snippets plugin
 	use {'hoob3rt/lualine.nvim',
   		requires = {'kyazdani42/nvim-web-devicons', opt = true}}
 	use {'caenrique/nvim-toggle-terminal'}
 	use {'kyazdani42/nvim-tree.lua',
   		requires = {'kyazdani42/nvim-web-devicons', opt = true}}
+
+	use{'hrsh7th/vim-vsnip'} --Snippets
+	use{'rafamadriz/friendly-snippets'}
+
 	use {'kabouzeid/nvim-lspinstall'}
+	use {'neovim/nvim-lspconfig'}
+	use {'hrsh7th/nvim-compe'}
 end)
 
 
