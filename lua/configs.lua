@@ -119,9 +119,16 @@ local function setup_servers()
   local servers = require'lspinstall'.installed_servers()
   for _, server in pairs(servers) do
     require'lspconfig'[server].setup{}
+
 	if server == 'lua' then
     	require'lspconfig'[server].setup{
 		settings={Lua={diagnostics={globals={'vim'}}}}
+		}
+	elseif server == 'python' then
+		require'lspconfig'[server].setup{
+		settings={reportMissingTypeStubs={'None'},
+		reportGeneralTypeIssues={'None'}
+	}
 		}
 	else
     require'lspconfig'[server].setup{}

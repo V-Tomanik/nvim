@@ -51,7 +51,6 @@ vim.api.nvim_set_keymap('n','<Leader>git',':Git<CR>',{})
 
 -- Completion
 --Tab seleciona o item no popup
-
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
