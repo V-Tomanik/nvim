@@ -4,7 +4,6 @@ USER = vim.fn.expand("$USER")
 local g = vim.g
 local bo = vim.bo
 local wo = vim.wo
-local map = vim.api.nvim_set_keymap
 --================================
 --			VIM SETUP
 --================================
@@ -36,7 +35,6 @@ wo.cursorcolumn=true
 wo.signcolumn="yes"
 
 vim.o.showtabline=2
-vim.o.completeopt = 'menuone,noselect'
 
 vim.cmd('set shortmess+=c')
 --================================
@@ -48,17 +46,53 @@ vim.cmd('colorscheme dracula')
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {'python','lua'},
   highlight = {
-    enable = true,              -- false will disable the whole extension
+    enable = false,              -- false will disable the whole extension
   },
 }
 --Para file explorer
-vim.g.nvim_tree_ignore ={'.git'}
+require'nvim-tree'.setup {
+      disable_netrw       = true,
+      hijack_netrw        = true,
+      open_on_setup       = false,
+      ignore_ft_on_setup  = {},
+      update_to_buf_dir   = {
+        enable = true,
+        auto_open = true,
+      },
+      auto_close          = true,
+      open_on_tab         = false,
+      hijack_cursor       = false,
+      update_cwd          = true,
+      diagnostics         = {
+        enable = true,
+        icons = {
+          hint = "",
+          info = "",
+          warning = "",
+          error = "",
+        }
+      },
+      update_focused_file = {
+        enable      = true,
+        update_cwd  = true,
+        ignore_list = {}
+      },
+      system_open = {
+        cmd  = nil,
+        args = {}
+      },
+      view = {
+        width = 30,
+        height = 30,
+        side = 'left',
+        auto_resize = false,
+        mappings = {
+          custom_only = false,
+          list = {}
+        }
+      }
+    }
 
---Para Project plugin
-vim.g.nvim_tree_update_cwd = 1
-vim.g.nvim_tree_respect_buf_cwd = 1
---Para completion and ultisnipts
---vim.g.completion_enable_snippet='UltiSnips'
 
 --Para dashboard
 vim.g.dashboard_default_executive = 'telescope'
@@ -143,42 +177,4 @@ require'lspinstall'.post_install_hook = function ()
   setup_servers() -- reload installed servers
   vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 end
-
---================================
---			Completion SETUP
---================================
-
-require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  resolve_timeout = 800;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = {
-    border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
-    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
-    max_width = 120,
-    min_width = 60,
-    max_height = math.floor(vim.o.lines * 0.3),
-    min_height = 1,
-  };
-
-  source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    vsnip = true;
-    ultisnips = true;
-    luasnip = true;
-  };
-}
 

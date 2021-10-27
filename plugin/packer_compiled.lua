@@ -69,13 +69,38 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  LuaSnip = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/LuaSnip"
+  },
   ["barbar.nvim"] = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/barbar.nvim"
   },
+  ["cmp-buffer"] = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/cmp-buffer"
+  },
+  ["cmp-nvim-lsp"] = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp"
+  },
+  ["cmp-path"] = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/cmp-path"
+  },
+  cmp_luasnip = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/cmp_luasnip"
+  },
   ["dashboard-nvim"] = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/dashboard-nvim"
+  },
+  ["distant.nvim"] = {
+    config = { "\27LJ\2\nt\0\0\6\0\a\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\5\0006\3\0\0'\5\3\0B\3\2\0029\3\4\3B\3\1\2=\3\6\2B\0\2\1K\0\1\0\6*\1\0\0\17chip_default\21distant.settings\nsetup\fdistant\frequire\0" },
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/distant.nvim"
   },
   dracula = {
     loaded = true,
@@ -93,9 +118,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
-  ["nvim-compe"] = {
+  ["nvim-cmp"] = {
     loaded = true,
-    path = "/home/vv/.local/share/nvim/site/pack/packer/start/nvim-compe"
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/nvim-cmp"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -149,10 +174,6 @@ _G.packer_plugins = {
   ["vim-fugitive"] = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/vim-fugitive"
-  },
-  ["vim-vsnip"] = {
-    loaded = true,
-    path = "/home/vv/.local/share/nvim/site/pack/packer/start/vim-vsnip"
   }
 }
 
@@ -161,6 +182,10 @@ time([[Defining packer_plugins]], false)
 time([[Config for project.nvim]], true)
 try_loadstring("\27LJ\2\n‚\1\0\0\6\0\6\1\0146\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\3\0006\3\0\0'\5\3\0B\3\2\0029\3\4\3'\5\5\0B\3\2\0?\3\0\0B\0\2\1K\0\1\0\rprojects\19load_extension\14telescope\nsetup\17project_nvim\frequire\3€€À™\4\0", "config", "project.nvim")
 time([[Config for project.nvim]], false)
+-- Config for: distant.nvim
+time([[Config for distant.nvim]], true)
+try_loadstring("\27LJ\2\nt\0\0\6\0\a\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\5\0006\3\0\0'\5\3\0B\3\2\0029\3\4\3B\3\1\2=\3\6\2B\0\2\1K\0\1\0\6*\1\0\0\17chip_default\21distant.settings\nsetup\fdistant\frequire\0", "config", "distant.nvim")
+time([[Config for distant.nvim]], false)
 if should_profile then save_profiles() end
 
 end)
