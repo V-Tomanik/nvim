@@ -1,5 +1,5 @@
 local map = vim.api.nvim_set_keymap
-
+require 'tools'
 --================================
 --			VIM  MAP
 --================================
@@ -22,6 +22,8 @@ map('n', 'bc', ':BufferClose<CR>', { noremap = true, silent = true })
 -- Movimentação no terminal buffer
 vim.cmd('tnoremap <Esc> <C-\\><C-n>')
 
+--Criar file novo
+map('n', '<Leader>nf<CR>',':newtab',{})
 --================================
 --			TOOL'S  MAP
 --================================

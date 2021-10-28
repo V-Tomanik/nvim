@@ -12,5 +12,3 @@ end
 vim.cmd("command! Scratch lua require'tools'.makeScratch()")
 
 return M
-
-

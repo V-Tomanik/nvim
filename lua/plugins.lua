@@ -36,11 +36,14 @@ return require('packer').startup(function(use)
 			require('telescope').load_extension('projects')}
 		end}
 
+
+	--treesitter
 	use {'nvim-treesitter/nvim-treesitter'}
 
 	--StartUp Dash
 	use {'glepnir/dashboard-nvim'}
 
+	--Status Line
 	use {'hoob3rt/lualine.nvim',
   		requires = {'kyazdani42/nvim-web-devicons', opt = true}}
 
@@ -56,6 +59,7 @@ return require('packer').startup(function(use)
 	use {'kabouzeid/nvim-lspinstall'}
 	use {'neovim/nvim-lspconfig'}
 	use{'onsails/lspkind-nvim'}
+
 	--Completion
 	use {'hrsh7th/nvim-cmp'}
 	use {'hrsh7th/cmp-buffer'} -- Completion via buffer
@@ -63,6 +67,12 @@ return require('packer').startup(function(use)
 	use {'hrsh7th/cmp-nvim-lsp'} -- Completion via lsp
 	use {'saadparwaiz1/cmp_luasnip'} --Completion via luasnip
 
+	--TESTANDO
+	--Database
+	use {'tpope/dad-bod'}
+	use {'kristijanhusak/vim-dadbod-ui'}
+
+	--SSH
 	use {'chipsenkbeil/distant.nvim', --Trabalhar com SSH
   		config = function()
     	require('distant').setup {
