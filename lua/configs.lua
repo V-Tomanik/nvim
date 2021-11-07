@@ -44,7 +44,7 @@ vim.cmd('colorscheme dracula')
 
 --Para treesitter
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {'python','lua'},
+  ensure_installed = {'python','lua','html'},
   highlight = {
     enable = false,              -- false will disable the whole extension
   },
@@ -97,7 +97,6 @@ require'nvim-tree'.setup {
 --Para dashboard
 vim.g.dashboard_default_executive = 'telescope'
 vim.g.dashboard_custom_header={
-    
          '',
          '   ⠀⠀⠀⠀⠀⠀⠀⠀⠀⡴⠞⠉⢉⣭⣿⣿⠿⣳⣤⠴⠖⠛⣛⣿⣿⡷⠖⣶⣤⡀⠀⠀⠀   ',
          '    ⠀⠀⠀⠀⠀⠀⠀⣼⠁⢀⣶⢻⡟⠿⠋⣴⠿⢻⣧⡴⠟⠋⠿⠛⠠⠾⢛⣵⣿⠀⠀⠀⠀  ',
@@ -151,34 +150,16 @@ require'lualine'.setup {
 --			LSP SETUP
 --================================
 
---Função para instalar os servers e setp (lspinstall e lspconfig)
-local function setup_servers()
-  require'lspinstall'.setup()
-  local servers = require'lspinstall'.installed_servers()
-  for _, server in pairs(servers) do
-    require'lspconfig'[server].setup{}
+--LSP Installer
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.settings {
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+}
 
-	if server == 'lua' then
-    	require'lspconfig'[server].setup{
-		settings={Lua={diagnostics={globals={'vim'}}}}
-		}
-	elseif server == 'python' then
-		require'lspconfig'[server].setup{
-		settings={reportMissingTypeStubs={'None'},
-		reportGeneralTypeIssues={'None'}
-	}
-		}
-	else
-    require'lspconfig'[server].setup{}
-	end
-  end
-end
-
-setup_servers()
-
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require'lspinstall'.post_install_hook = function ()
-  setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
-
+lsp_installer.on_server_ready(function (server) server:setup {} end)

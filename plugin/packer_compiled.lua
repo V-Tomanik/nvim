@@ -114,6 +114,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/gruvbox"
   },
+  ["lspkind-nvim"] = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
+  },
   ["lualine.nvim"] = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/lualine.nvim"
@@ -122,13 +126,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/nvim-cmp"
   },
+  ["nvim-lsp-installer"] = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
-  },
-  ["nvim-lspinstall"] = {
-    loaded = true,
-    path = "/home/vv/.local/share/nvim/site/pack/packer/start/nvim-lspinstall"
   },
   ["nvim-toggle-terminal"] = {
     loaded = true,
@@ -170,6 +174,14 @@ _G.packer_plugins = {
   undotree = {
     loaded = true,
     path = "/home/vv/.local/share/nvim/site/pack/packer/start/undotree"
+  },
+  ["vim-dadbod"] = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/vim-dadbod"
+  },
+  ["vim-dadbod-ui"] = {
+    loaded = true,
+    path = "/home/vv/.local/share/nvim/site/pack/packer/start/vim-dadbod-ui"
   },
   ["vim-fugitive"] = {
     loaded = true,

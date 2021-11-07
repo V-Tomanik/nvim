@@ -40,6 +40,17 @@ return require('packer').startup(function(use)
 	--treesitter
 	use {'nvim-treesitter/nvim-treesitter'}
 
+	--Comments
+	use {
+  		"folke/todo-comments.nvim",
+  		requires = "nvim-lua/plenary.nvim",
+  		config = function()
+    	require("todo-comments").setup {
+      		-- your configuration comes here
+      		-- or leave it empty to use the default settings
+    	}
+  	end}
+
 	--StartUp Dash
 	use {'glepnir/dashboard-nvim'}
 
@@ -49,14 +60,17 @@ return require('packer').startup(function(use)
 
 	--Terminal Switch
 	use {'caenrique/nvim-toggle-terminal'}
+
+	--Tree
 	use {'kyazdani42/nvim-tree.lua',
   		requires = {'kyazdani42/nvim-web-devicons', opt = true}}
 
-	use{'L3MON4D3/LuaSnip'} --Snippets
+	--Snippets
+	use{'L3MON4D3/LuaSnip'}
 	use{'rafamadriz/friendly-snippets'}
 
 	--LSP Stuff
-	use {'kabouzeid/nvim-lspinstall'}
+	use {'williamboman/nvim-lsp-installer'}
 	use {'neovim/nvim-lspconfig'}
 	use{'onsails/lspkind-nvim'}
 
@@ -69,7 +83,7 @@ return require('packer').startup(function(use)
 
 	--TESTANDO
 	--Database
-	use {'tpope/dad-bod'}
+	use {'tpope/vim-dadbod'}
 	use {'kristijanhusak/vim-dadbod-ui'}
 
 	--SSH

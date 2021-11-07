@@ -8,7 +8,6 @@ map('n','<Leader>q',':q<CR>',{})
 map('n','<Leader>s',':w<CR>',{})
 map('n','<Leader>vs',':sv<CR>',{})
 
-map('i','<CapsLock>','<Esc>',{})
 -- Movimentação de janelas
 map('n','<Leader>l',':wincmd l<CR>',{})
 map('n','<Leader>h',':wincmd h<CR>',{})
@@ -51,13 +50,3 @@ map('n','<silent>gr','vim.lsp.buf.references()<CR>',{})
 
 map('n','<Leader>git',':Git<CR>',{})
 
--- Completion
---Tab seleciona o item no popup
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
-end
