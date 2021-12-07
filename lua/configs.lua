@@ -1,5 +1,4 @@
 --Configurações gerais e keymaps
-
 USER = vim.fn.expand("$USER")
 local g = vim.g
 local bo = vim.bo
@@ -9,7 +8,6 @@ local wo = vim.wo
 --================================
 
 -- Variaveis aplicadas globalmente
-
 g.mapleader=' '
 vim.cmd('set guicursor=')
 g.hlsearch=true
@@ -162,4 +160,20 @@ lsp_installer.settings {
     }
 }
 
-lsp_installer.on_server_ready(function (server) server:setup {} end)
+--Refazer
+lsp_installer.on_server_ready(function (server)
+	--Definições gerais
+	local default_opts={}
+
+	local opts = {
+	--Definições especificas de cada lsp server
+	["sumneko_lua"] = function ()
+		default_opts.settings={
+			--Define 'vim' como uma variavel global, para não dar erro
+			Lua={diagnostics={globals={'vim',},},},}
+	end,}
+
+	--Caso tenha configs do server, usar ele, se não usa o default
+ 	local server_options = opts[server.name] and opts[server.name]() or default_opts
+  	server:setup(server_options)
+  end)

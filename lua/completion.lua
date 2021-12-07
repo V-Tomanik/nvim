@@ -34,9 +34,9 @@ sources = {
       with_text = true,
       menu = {
         buffer = "[buf]",
+        luasnip = "[snip]",
         nvim_lsp = "[LSP]",
         path = "[path]",
-        luasnip = "[snip]",
       },
     },
   }

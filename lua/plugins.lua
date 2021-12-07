@@ -36,7 +36,6 @@ return require('packer').startup(function(use)
 			require('telescope').load_extension('projects')}
 		end}
 
-
 	--treesitter
 	use {'nvim-treesitter/nvim-treesitter'}
 
@@ -50,7 +49,6 @@ return require('packer').startup(function(use)
       		-- or leave it empty to use the default settings
     	}
   	end}
-
 	--StartUp Dash
 	use {'glepnir/dashboard-nvim'}
 
@@ -98,8 +96,3 @@ return require('packer').startup(function(use)
     		}end}
 
 end)
-
-
-
-
-
