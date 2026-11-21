@@ -1,0 +1,29 @@
+# Ghostty config — symlinked to ~/.config/ghostty/config by station/install.sh
+# All options: `ghostty +show-config --default --docs`   Reload: ⌘⇧,
+
+# Look
+font-family = JetBrainsMono Nerd Font
+font-size = 14
+theme = Catppuccin Mocha
+window-padding-x = 8
+window-padding-y = 6
+window-padding-balance = true
+cursor-style-blink = false
+
+# Behaviour
+# Ghostty's shell integration fights tmux/nvim over the cursor shape; let nvim own it.
+shell-integration-features = no-cursor
+# Paste/copy via OSC 52 (lets tmux and nvim over SSH write to the macOS clipboard)
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = false
+confirm-close-surface = true
+
+# Option key: left Option acts as Alt (Meta) for terminal shortcuts,
+# right Option still types special characters.
+# IMPORTANT on Spanish/Portuguese keyboards you type @ # [ ] { } | with Option.
+# If those break, use the Option key you DON'T type them with, or set this to false.
+macos-option-as-alt = left
+
+# Open new windows/tabs in the same folder
+window-inherit-working-directory = true

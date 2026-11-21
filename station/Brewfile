@@ -1,0 +1,22 @@
+# Code station — everything outside Neovim.
+# Install with:  brew bundle --file=~/.config/nvim/station/Brewfile
+
+# Editor + multiplexer
+brew "neovim"
+brew "tmux"
+brew "ncurses"      # provides the tmux-256color terminfo that macOS lacks
+
+# CLI tools
+brew "ripgrep"      # Telescope live grep (<leader>sg) depends on it
+brew "fd"           # fast file finder, respects .gitignore (Telescope <leader>sf)
+brew "uv"           # Python projects, venvs and versions
+brew "lazygit"      # git UI (<leader>gg in nvim, prefix+g in tmux)
+brew "zoxide"       # `z <part-of-folder-name>` jumps there
+
+# Mason installs several language servers through npm (vtsls, eslint, html/css/json).
+# Skip this line if you already manage Node another way (nvm, fnm, volta).
+brew "node"
+
+# Terminal + font
+cask "ghostty"
+cask "font-jetbrains-mono-nerd-font"
