@@ -37,11 +37,6 @@ do
 		return
 	      end
 
-	      if name == 'LuaSnip' then
-		if vim.fn.has 'win32' ~= 1 and vim.fn.executable 'make' == 1 then run_build(name, { 'make', 'install_jsregexp' }, ev.data.path) end
-		return
-	      end
-
 	      if name == 'nvim-treesitter' then
 		if not ev.data.active then vim.cmd.packadd 'nvim-treesitter' end
 		vim.cmd 'TSUpdate'
@@ -64,15 +59,89 @@ do
 	require('nvim-autopairs').setup {}
 
 	vim.pack.add { gh 'lewis6991/gitsigns.nvim' }
-  	require('gitsigns').setup {
-	    signs = {
-	      add = { text = '+' }, ---@diagnostic disable-line: missing-fields
-	      change = { text = '~' }, ---@diagnostic disable-line: missing-fields
-	      delete = { text = '_' }, ---@diagnostic disable-line: missing-fields
-	      topdelete = { text = '‾' }, ---@diagnostic disable-line: missing-fields
-	      changedelete = { text = '~' }, ---@diagnostic disable-line: missing-fields
-	    },
-  	}
+	local gitsigns = require 'gitsigns'
+	gitsigns.setup {
+		signs = {
+			add = { text = '+' }, ---@diagnostic disable-line: missing-fields
+			change = { text = '~' }, ---@diagnostic disable-line: missing-fields
+			delete = { text = '_' }, ---@diagnostic disable-line: missing-fields
+			topdelete = { text = '‾' }, ---@diagnostic disable-line: missing-fields
+			changedelete = { text = '~' }, ---@diagnostic disable-line: missing-fields
+		},
+		-- Act on changes, not just see them: <leader>h = git [H]unk
+		on_attach = function(bufnr)
+			local function map(mode, l, r, desc) vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc }) end
+			map('n', ']c', function()
+				if vim.wo.diff then vim.cmd.normal { ']c', bang = true } else gitsigns.nav_hunk 'next' end
+			end, 'Next git [c]hange')
+			map('n', '[c', function()
+				if vim.wo.diff then vim.cmd.normal { '[c', bang = true } else gitsigns.nav_hunk 'prev' end
+			end, 'Previous git [c]hange')
+			map('v', '<leader>hs', function() gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' } end, 'git [s]tage hunk')
+			map('v', '<leader>hr', function() gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' } end, 'git [r]eset hunk')
+			map('n', '<leader>hs', gitsigns.stage_hunk, 'git [s]tage hunk')
+			map('n', '<leader>hr', gitsigns.reset_hunk, 'git [r]eset hunk')
+			map('n', '<leader>hS', gitsigns.stage_buffer, 'git [S]tage buffer')
+			map('n', '<leader>hR', gitsigns.reset_buffer, 'git [R]eset buffer')
+			map('n', '<leader>hp', gitsigns.preview_hunk, 'git [p]review hunk')
+			map('n', '<leader>hb', function() gitsigns.blame_line { full = true } end, 'git [b]lame line')
+			map('n', '<leader>hd', gitsigns.diffthis, 'git [d]iff against index')
+			map('n', '<leader>tb', gitsigns.toggle_current_line_blame, '[T]oggle git [b]lame line')
+			map({ 'o', 'x' }, 'ih', gitsigns.select_hunk, 'inside git hunk')
+		end,
+	}
+
+	-- Lazygit in a floating terminal (needs `brew install lazygit`)
+	vim.keymap.set('n', '<leader>gg', function()
+		if vim.fn.executable 'lazygit' ~= 1 then
+			vim.notify('lazygit not found: brew install lazygit', vim.log.levels.WARN)
+			return
+		end
+		local buf = vim.api.nvim_create_buf(false, true)
+		local w, h = math.floor(vim.o.columns * 0.9), math.floor(vim.o.lines * 0.9)
+		local win = vim.api.nvim_open_win(buf, true, {
+			relative = 'editor', width = w, height = h,
+			col = math.floor((vim.o.columns - w) / 2), row = math.floor((vim.o.lines - h) / 2),
+			style = 'minimal', border = 'rounded',
+		})
+		vim.fn.jobstart({ 'lazygit' }, {
+			term = true,
+			on_exit = function()
+				if vim.api.nvim_win_is_valid(win) then vim.api.nvim_win_close(win, true) end
+				if vim.api.nvim_buf_is_valid(buf) then vim.api.nvim_buf_delete(buf, { force = true }) end
+				vim.cmd 'checktime' -- reload files lazygit may have changed
+			end,
+		})
+		vim.cmd.startinsert()
+	end, { desc = '[G]it: lazy[g]it' })
+
+	-- Shows pending keybinds after you press <leader>, g, etc.
+	vim.pack.add { gh 'folke/which-key.nvim' }
+	require('which-key').setup {
+		delay = 300,
+		icons = { mappings = vim.g.have_nerd_font },
+		spec = {
+			{ '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
+			{ '<leader>t', group = '[T]oggle' },
+			{ '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+			{ '<leader>g', group = '[G]it' },
+			{ 'gr', group = 'LSP Actions' },
+		},
+	}
+
+	-- Colorscheme. Preview others live with :Telescope colorscheme
+	vim.pack.add { gh 'folke/tokyonight.nvim' }
+	require('tokyonight').setup { styles = { comments = { italic = false } } }
+	vim.cmd.colorscheme 'tokyonight-night'
+
+	-- File explorer that edits the filesystem like a buffer.
+	-- `-` opens the parent directory; rename/move/delete by editing lines, then :w
+	vim.pack.add { gh 'stevearc/oil.nvim' }
+	require('oil').setup {
+		view_options = { show_hidden = true },
+		keymaps = { ['<C-h>'] = false, ['<C-l>'] = false }, -- keep your split navigation
+	}
+	vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'Open parent directory' })
 	-- Highlight todo, notes, etc in comments
 	vim.pack.add { gh 'folke/todo-comments.nvim' }
 	require('todo-comments').setup { signs = false }

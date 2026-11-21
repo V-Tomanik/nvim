@@ -8,8 +8,11 @@ do
   	--  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
   	vim.g.mapleader = ' '
   	vim.g.maplocalleader = ' '
-  	-- Make line numbers default
+  	-- Hybrid line numbers: absolute number on the current line, relative elsewhere
+  	vim.o.number = true
   	vim.o.relativenumber = true
+  	-- Set to true if your terminal uses a Nerd Font (needed for icons)
+  	vim.g.have_nerd_font = true
 	-- Enable mouse mode, can be useful for resizing splits for example!
 	vim.o.mouse='a'
 	-- Don't show the mode, since it's already in the status line
@@ -107,6 +110,7 @@ do
 do
 -- SECTION 2: PLUGIN MANAGER
 require("plugins")
+require("completion") -- before lsp, so servers get blink's capabilities
 require("lsp")
 require("treesitter")
 end

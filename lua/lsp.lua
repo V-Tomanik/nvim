@@ -108,14 +108,31 @@ do
   --  See `:help lsp-config` for information about keys and how to configure
   ---@type table<string, vim.lsp.Config>
   local servers = {
-    -- clangd = {},
-    -- gopls = {},
-     pyright = {},
-    -- rust_analyzer = {},
-    --
-    -- But for many setups, the LSP (`ts_ls`) will work just fine
-    -- ts_ls = {},
+    -- PYTHON
+    -- basedpyright: pyright fork with better defaults and inlay hints.
+    -- It picks up the project's .venv automatically (e.g. one made by `uv`).
+    basedpyright = {
+      settings = {
+        basedpyright = {
+          analysis = { typeCheckingMode = 'standard' }, -- 'basic' | 'standard' | 'strict' | 'all'
+          disableOrganizeImports = true, -- ruff does this
+        },
+      },
+    },
+    -- ruff: linting + quick fixes. Hover is left to basedpyright.
+    ruff = {
+      on_attach = function(client) client.server_capabilities.hoverProvider = false end,
+    },
 
+    -- WEB
+    vtsls = {}, -- JavaScript / TypeScript (VS Code's TS engine)
+    eslint = {}, -- only activates in projects with an eslint config
+    html = {},
+    cssls = {},
+    jsonls = {},
+    -- tailwindcss = {}, -- uncomment if you use Tailwind
+
+    -- LUA
     stylua = {}, -- Used to format Lua code
     -- Special Lua Config, as recommended by neovim help docs
     lua_ls = {
@@ -171,7 +188,7 @@ do
   -- You can press `g?` for help in this menu.
   local ensure_installed = vim.tbl_keys(servers or {})
   vim.list_extend(ensure_installed, {
-    -- You can add other tools here that you want Mason to install
+    'prettierd', -- formatter for JS/TS/HTML/CSS/JSON/Markdown
   })
 
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -192,8 +209,15 @@ do
     format_on_save = function(bufnr)
       -- You can specify filetypes to autoformat on save here:
       local enabled_filetypes = {
-        -- lua = true,
-        -- python = true,
+        lua = true,
+        python = true,
+        javascript = true,
+        javascriptreact = true,
+        typescript = true,
+        typescriptreact = true,
+        html = true,
+        css = true,
+        json = true,
       }
       if enabled_filetypes[vim.bo[bufnr].filetype] then
         return { timeout_ms = 500 }
@@ -206,12 +230,17 @@ do
     },
     -- You can also specify external formatters in here.
     formatters_by_ft = {
-      -- rust = { 'rustfmt' },
-      -- Conform can also run multiple formatters sequentially
-      -- python = { "isort", "black" },
-      --
-      -- You can use 'stop_after_first' to run the first available formatter from the list
-      -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      lua = { 'stylua' },
+      -- sort imports, then format (ruff replaces isort + black)
+      python = { 'ruff_organize_imports', 'ruff_format' },
+      javascript = { 'prettierd', 'prettier', stop_after_first = true },
+      javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+      typescript = { 'prettierd', 'prettier', stop_after_first = true },
+      typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+      html = { 'prettierd', 'prettier', stop_after_first = true },
+      css = { 'prettierd', 'prettier', stop_after_first = true },
+      json = { 'prettierd', 'prettier', stop_after_first = true },
+      markdown = { 'prettierd', 'prettier', stop_after_first = true },
     },
   }
 
