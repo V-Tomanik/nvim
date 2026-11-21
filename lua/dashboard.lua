@@ -35,7 +35,9 @@ do
     { 'Space hp', 'preview hunk' },
     {},
     { 'TMUX  (prefix = Ctrl+a)' },
+    { 'Ctrl+h/j/k/l', 'move between panes' },
     { 'prefix | / -', 'split side / stacked' },
+    { 'prefix z / x', 'zoom / close pane' },
     { 'prefix c / s', 'new window / sessions' },
     { 'prefix d', 'detach (keeps running)' },
   }
