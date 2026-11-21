@@ -13,9 +13,9 @@ brew "uv"           # Python projects, venvs and versions
 brew "lazygit"      # git UI (<leader>gg in nvim, prefix+g in tmux)
 brew "zoxide"       # `z <part-of-folder-name>` jumps there
 
-# Mason installs several language servers through npm (vtsls, eslint, html/css/json).
-# Skip this line if you already manage Node another way (nvm, fnm, volta).
-brew "node"
+# Node is NOT installed here: it comes from nvm (~/.nvm). Mason uses it to install
+# npm-based language servers (vtsls, eslint, html/css/json), so start nvim from a
+# shell where `node -v` works.
 
 # Terminal + font
 cask "ghostty"
