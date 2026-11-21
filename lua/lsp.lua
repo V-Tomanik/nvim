@@ -132,6 +132,26 @@ do
     jsonls = {},
     -- tailwindcss = {}, -- uncomment if you use Tailwind
 
+    -- PHP / WORDPRESS
+    -- Setting `stubs` REPLACES intelephense's default list, so the defaults are repeated
+    -- here and 'wordpress' is added (gives you WP functions, hooks and classes).
+    -- Free version: completion, diagnostics, go-to-definition, hover. Rename and a few
+    -- others need an intelephense licence.
+    intelephense = {
+      settings = {
+        intelephense = {
+          stubs = {
+            'apache', 'bcmath', 'bz2', 'calendar', 'Core', 'ctype', 'curl', 'date', 'dom',
+            'exif', 'fileinfo', 'filter', 'gd', 'gettext', 'hash', 'iconv', 'intl', 'json',
+            'libxml', 'mbstring', 'mysqli', 'mysqlnd', 'openssl', 'pcntl', 'pcre', 'PDO',
+            'pdo_mysql', 'Phar', 'readline', 'Reflection', 'session', 'SimpleXML', 'sodium',
+            'SPL', 'standard', 'tokenizer', 'xml', 'xmlreader', 'xmlwriter', 'zip', 'zlib',
+            'wordpress',
+          },
+        },
+      },
+    },
+
     -- LUA
     stylua = {}, -- Used to format Lua code
     -- Special Lua Config, as recommended by neovim help docs

@@ -18,6 +18,8 @@ do
     'python',
     -- web
     'html', 'css', 'javascript', 'typescript', 'tsx', 'json', 'jsdoc',
+    -- php / wordpress
+    'php', 'phpdoc',
   }
   require('nvim-treesitter').install(parsers)
 
