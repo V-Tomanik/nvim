@@ -8,7 +8,6 @@ do
   	--  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
   	vim.g.mapleader = ' '
   	vim.g.maplocalleader = ' '
-	
   	-- Make line numbers default
   	vim.o.relativenumber = true
 	-- Enable mouse mode, can be useful for resizing splits for example!
@@ -17,7 +16,6 @@ do
   	vim.o.showmode = false
 	-- Enable break indent
   	vim.o.breakindent = true
-  
 	-- copy and past clipboard between os and nvim
 	vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 
