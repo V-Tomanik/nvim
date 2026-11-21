@@ -129,10 +129,15 @@ do
 		},
 	}
 
-	-- Colorscheme. Preview others live with :Telescope colorscheme
-	vim.pack.add { gh 'folke/tokyonight.nvim' }
-	require('tokyonight').setup { styles = { comments = { italic = false } } }
-	vim.cmd.colorscheme 'tokyonight-night'
+	-- Colorscheme: Catppuccin Mocha, same palette as the Ghostty and tmux configs in station/.
+	-- Preview others live with :Telescope colorscheme
+	vim.pack.add { { src = gh 'catppuccin/nvim', name = 'catppuccin' } }
+	require('catppuccin').setup { flavour = 'mocha' }
+	vim.cmd.colorscheme 'catppuccin'
+
+	-- CTRL+<hjkl> moves between Neovim splits and tmux panes seamlessly.
+	-- Outside tmux it simply moves between splits. Needs the matching block in station/tmux/tmux.conf.
+	vim.pack.add { gh 'christoomey/vim-tmux-navigator' }
 
 	-- File explorer that edits the filesystem like a buffer.
 	-- `-` opens the parent directory; rename/move/delete by editing lines, then :w

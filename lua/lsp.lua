@@ -207,6 +207,8 @@ do
   require('conform').setup {
     notify_on_error = false,
     format_on_save = function(bufnr)
+      -- <leader>tf toggles this globally (e.g. when editing someone else's unformatted code)
+      if vim.g.disable_autoformat then return nil end
       -- You can specify filetypes to autoformat on save here:
       local enabled_filetypes = {
         lua = true,
@@ -245,4 +247,8 @@ do
   }
 
   vim.keymap.set({ 'n', 'v' }, '<leader>f', function() require('conform').format { async = true } end, { desc = '[F]ormat buffer' })
+  vim.keymap.set('n', '<leader>tf', function()
+    vim.g.disable_autoformat = not vim.g.disable_autoformat
+    vim.notify('Format on save: ' .. (vim.g.disable_autoformat and 'OFF' or 'ON'))
+  end, { desc = '[T]oggle [F]ormat on save' })
 end
