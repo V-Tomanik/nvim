@@ -49,7 +49,8 @@ Leader is `Space`. Press it and wait: which-key shows everything available.
 | Keys | Action |
 |---|---|
 | `Ctrl+h/j/k/l` | move between nvim splits **and** tmux panes |
-| `-` | file explorer (oil): edit the listing like text, `:w` to apply |
+| `Space e` / `Space E` | column file explorer (mini.files) at this file / project root |
+| in the explorer | `n` new (end with `/` for a folder) · `r` rename · `dd` delete to trash · `m` on an item, then `m` in the destination folder to move · `q` close |
 | `Space Space` | open buffers |
 | `Space sf` / `Space sg` | search files / grep text |
 | `Space s.` | recent files |
@@ -96,6 +97,11 @@ Leader is `Space`. Press it and wait: which-key shows everything available.
 |---|---|
 | `z <part of folder name>` | jump to a folder you've visited |
 | `v` / `lg` | nvim / lazygit |
+
+> **Explorer note:** `n` / `r` / `dd` / `m` act on the disk right away. You can still edit the listing
+> as text and press `=`, but then rename with `C`, never `cc`: each line carries a hidden id, and
+> wiping the whole line turns a rename into DELETE + CREATE. Deleted files go to
+> `~/.local/share/nvim/mini.files/trash`, so mistakes are recoverable.
 
 ## Updating
 

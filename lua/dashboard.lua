@@ -9,7 +9,7 @@ do
     { 'Space sg', 'grep text in project' },
     { 'Space s.', 'recent files' },
     { 'Space Space', 'open buffers' },
-    { '-', 'file explorer (edit, then :w)' },
+    { 'Space e', 'explorer (n, r, dd, m)' },
     { 'Ctrl+h/j/k/l', 'move between splits / tmux panes' },
     {},
     { 'CODE' },

@@ -139,14 +139,7 @@ do
 	-- Outside tmux it simply moves between splits. Needs the matching block in station/tmux/tmux.conf.
 	vim.pack.add { gh 'christoomey/vim-tmux-navigator' }
 
-	-- File explorer that edits the filesystem like a buffer.
-	-- `-` opens the parent directory; rename/move/delete by editing lines, then :w
-	vim.pack.add { gh 'stevearc/oil.nvim' }
-	require('oil').setup {
-		view_options = { show_hidden = true },
-		keymaps = { ['<C-h>'] = false, ['<C-l>'] = false }, -- keep your split navigation
-	}
-	vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'Open parent directory' })
+	-- File explorer: see lua/explorer.lua (mini.files, Space e)
 	-- Highlight todo, notes, etc in comments
 	vim.pack.add { gh 'folke/todo-comments.nvim' }
 	require('todo-comments').setup { signs = false }

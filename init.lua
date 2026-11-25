@@ -111,6 +111,7 @@ require("plugins")
 require("completion") -- before lsp, so servers get blink's capabilities
 require("lsp")
 require("treesitter")
+require("explorer") -- mini.files: Space e
 require("dashboard") -- start page with keymap cheat sheet
 end
 
